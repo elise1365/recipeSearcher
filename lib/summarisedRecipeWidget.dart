@@ -14,15 +14,51 @@ class summarisedRecipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Text(title)
-            ]
+    String _ingredients = ingredients.toString();
+    _ingredients = _ingredients.replaceAll('[', '');
+    _ingredients = _ingredients.replaceAll(']', '');
+
+    return SizedBox(
+      width: 700,
+      height: 150,
+      child: Card(
+          child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(title, style: TextStyle(fontSize: 20)),
+                      ]
+                    ),
+                    SizedBox(height: 7),
+                    Row(
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            text: 'Ingredients: ',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            children: <TextSpan>[
+                              TextSpan(text: _ingredients, style: TextStyle(fontWeight: FontWeight.normal))
+                            ],
+                          ),
+                        )
+                      ]
+                    ),
+                    SizedBox(height: 7),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(overflow: TextOverflow.fade, softWrap: false, description)
+                        )
+                      ]
+                    )
+                    // Text(description)
+                  ]
+              )
           )
-        )
+      )
     );
   }
 
