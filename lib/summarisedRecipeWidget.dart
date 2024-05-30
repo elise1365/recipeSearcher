@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class summarisedRecipe extends StatelessWidget {
 
@@ -29,7 +30,11 @@ class summarisedRecipe extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(title, style: TextStyle(fontSize: 20)),
+                        Text(title,
+                          style: GoogleFonts.lexend(
+                            textStyle: TextStyle(fontSize: 20)
+                        ),),
+                        SizedBox(width: 7)
                       ]
                     ),
                     SizedBox(height: 7),
@@ -38,9 +43,14 @@ class summarisedRecipe extends StatelessWidget {
                         Text.rich(
                           TextSpan(
                             text: 'Ingredients: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: GoogleFonts.lexend(
+                                textStyle: TextStyle(fontWeight: FontWeight.bold)
+                            ),
                             children: <TextSpan>[
-                              TextSpan(text: _ingredients, style: TextStyle(fontWeight: FontWeight.normal))
+                              TextSpan(text: _ingredients,
+                                style: GoogleFonts.lexend(
+                                  textStyle: TextStyle(fontWeight: FontWeight.normal)
+                              ),)
                             ],
                           ),
                         )
@@ -50,11 +60,28 @@ class summarisedRecipe extends StatelessWidget {
                     Row(
                       children: [
                         Flexible(
-                          child: Text(overflow: TextOverflow.fade, softWrap: false, description)
+                          child: Text(overflow: TextOverflow.fade, softWrap: false, description,
+                            style: GoogleFonts.lexend()
+                          )
+                        )
+                      ]
+                    ),
+                    SizedBox(height: 7),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text.rich(
+                            TextSpan(
+                              text: 'Time: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              children: <TextSpan> [
+                                TextSpan(text: time.toString(), style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal))),
+                                TextSpan(text: ' mins', style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal)))
+                              ]
+                            )
                         )
                       ]
                     )
-                    // Text(description)
                   ]
               )
           )

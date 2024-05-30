@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'searchPage.dart';
 import 'summarisedRecipeWidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 String _inputText = '';
 
