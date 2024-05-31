@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'fullRecipeWidget.dart';
 
 class summarisedRecipe extends StatelessWidget {
 
@@ -23,67 +24,75 @@ class summarisedRecipe extends StatelessWidget {
       width: 700,
       height: 150,
       child: Card(
-          child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(title,
-                          style: GoogleFonts.lexend(
+        clipBehavior: Clip.hardEdge,
+          child: InkWell(
+            onTap: (){
+              Navigator.push(
+                context, MaterialPageRoute(builder: (context) => fullRecipe(title: 'Carbonara', description: 'asdfbn', time: 30, price: 1, difficulty: 1, ingredients: ['bread'], steps: ['stp']))
+              );
+            },
+            child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                    children: [
+                      Text(title,
+                        style: GoogleFonts.lexend(
                             textStyle: TextStyle(fontSize: 20)
                         ),),
-                        SizedBox(width: 7)
-                      ]
-                    ),
-                    SizedBox(height: 7),
-                    Row(
-                      children: [
-                        Text.rich(
-                          TextSpan(
-                            text: 'Ingredients: ',
-                            style: GoogleFonts.lexend(
-                                textStyle: TextStyle(fontWeight: FontWeight.bold)
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(text: _ingredients,
-                                style: GoogleFonts.lexend(
+                      SizedBox(width: 7)
+                    ]
+                ),
+                SizedBox(height: 7),
+                Row(
+                    children: [
+                      Text.rich(
+                        TextSpan(
+                          text: 'Ingredients: ',
+                          style: GoogleFonts.lexend(
+                              textStyle: TextStyle(fontWeight: FontWeight.bold)
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(text: _ingredients,
+                              style: GoogleFonts.lexend(
                                   textStyle: TextStyle(fontWeight: FontWeight.normal)
                               ),)
-                            ],
-                          ),
-                        )
-                      ]
-                    ),
-                    SizedBox(height: 7),
-                    Row(
-                      children: [
-                        Flexible(
+                          ],
+                        ),
+                      )
+                    ]
+                ),
+                SizedBox(height: 7),
+                Row(
+                    children: [
+                      Flexible(
                           child: Text(overflow: TextOverflow.fade, softWrap: false, description,
-                            style: GoogleFonts.lexend()
+                              style: GoogleFonts.lexend()
                           )
-                        )
-                      ]
-                    ),
-                    SizedBox(height: 7),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text.rich(
-                            TextSpan(
+                      )
+                    ]
+                ),
+                SizedBox(height: 7),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text.rich(
+                          TextSpan(
                               text: 'Time: ',
                               style: TextStyle(fontWeight: FontWeight.bold),
                               children: <TextSpan> [
                                 TextSpan(text: time.toString(), style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal))),
                                 TextSpan(text: ' mins', style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal)))
                               ]
-                            )
-                        )
-                      ]
-                    )
-                  ]
-              )
+                          )
+                      )
+                    ]
+                )
+              ]
+          )
+      )
           )
       )
     );
