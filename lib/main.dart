@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Recipe Searcher',
       debugShowCheckedModeBanner: false,
-      home: resultsPage(inputText: 'hello'),
+      home: searchPage(),
     );
   }
 }

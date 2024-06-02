@@ -56,7 +56,7 @@ class resultsPageState extends State<resultsPage> {
                       children: [
                         summarisedRecipe(title: 'Carbonara', description: 'asdfbn', time: 30, price: 1, difficulty: 1, ingredients: ['bread'], steps: ['stp']),
                         summarisedRecipe(title: 'Egg fried rice', description: 'asdfbnsdfgtyuioiuygfghioiuasdfghjkljhugytfrertyuiopiuytrewrtghjmnbvcdfrtyujhmnbvgfdrtyuijkmhngbfrtyujkhmnhgfvghg', time: 30, price: 1, difficulty: 2, ingredients: ['bread', 'apples'], steps: ['stp', 'sdfgh']),
-                        summarisedRecipe(title: 'Chilli con carne', description: 'asdfbn', time: 30, price: 3, difficulty: 2, ingredients: ['bread', 'banana', ' avocadao'], steps: ['stp', 'sdfgh']),
+                        summarisedRecipe(title: 'Chilli con carne', description: 'asdfbn', time: 30, price: 3, difficulty: 2, ingredients: ['bread', 'banana', ' avocadao'], steps: ['r4567uijkhngbojinbur4567uijkhngbfder456u7yjhnbvcxdser45ty6hbvtr yvubiojinbuvyctvuibh9j09biu y', 'sdfgh', 'stp', 'sdfgh', 'stp', 'sdfgh', 'stp', 'sdfgh']),
                         summarisedRecipe(title: 'Toast', description: 'asdfbn', time: 30, price: 2, difficulty: 3, ingredients: ['bread'], steps: ['stp', 'sdfgh']),
                         summarisedRecipe(title: 'Sausages and mash', description: 'asdfbn', time: 30, price: 1, difficulty: 2, ingredients: ['bread'], steps: ['stp', 'sdfgh'])
                       ]

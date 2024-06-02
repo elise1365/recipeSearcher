@@ -21,14 +21,14 @@ class summarisedRecipe extends StatelessWidget {
     _ingredients = _ingredients.replaceAll(']', '');
 
     return SizedBox(
-      width: 700,
+      width: 600,
       height: 150,
       child: Card(
         clipBehavior: Clip.hardEdge,
           child: InkWell(
             onTap: (){
               Navigator.push(
-                context, MaterialPageRoute(builder: (context) => fullRecipe(title: 'Carbonara', description: 'asdfbn', time: 30, price: 1, difficulty: 1, ingredients: ['bread'], steps: ['stp']))
+                context, MaterialPageRoute(builder: (context) => fullRecipe(title: title, description: description, time: time, price: price, difficulty: difficulty, ingredients: ingredients, steps: steps))
               );
             },
             child: Padding(
@@ -42,7 +42,6 @@ class summarisedRecipe extends StatelessWidget {
                         style: GoogleFonts.lexend(
                             textStyle: TextStyle(fontSize: 20)
                         ),),
-                      SizedBox(width: 7)
                     ]
                 ),
                 SizedBox(height: 7),
