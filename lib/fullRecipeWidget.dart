@@ -6,12 +6,10 @@ class fullRecipe extends StatelessWidget {
   String title = '';
   String description = '';
   int time = 0;
-  int price = 0;
-  int difficulty = 0;
   List ingredients = [];
   List steps = [];
 
-  fullRecipe({required this.title, required this.description, required this.time, required this.price, required this.difficulty, required this.ingredients, required this.steps});
+  fullRecipe({required this.title, required this.description, required this.time, required this.ingredients, required this.steps});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +24,7 @@ class fullRecipe extends StatelessWidget {
                 width: 700,
                 height: 600,
                 child: Card(
+                  color: Color(0xFFA1B0CE),
                     clipBehavior: Clip.hardEdge,
                     child: Padding(
                         padding: const EdgeInsets.all(20),

@@ -7,12 +7,10 @@ class summarisedRecipe extends StatelessWidget {
   String title = '';
   String description = '';
   int time = 0;
-  int price = 0;
-  int difficulty = 0;
   List ingredients = [];
   List steps = [];
 
-  summarisedRecipe({required this.title, required this.description, required this.time, required this.price, required this.difficulty, required this.ingredients, required this.steps});
+  summarisedRecipe({required this.title, required this.description, required this.time, required this.ingredients, required this.steps});
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +22,12 @@ class summarisedRecipe extends StatelessWidget {
       width: 600,
       height: 150,
       child: Card(
+        color: Color(0xFF7087B6),
         clipBehavior: Clip.hardEdge,
           child: InkWell(
             onTap: (){
               Navigator.push(
-                context, MaterialPageRoute(builder: (context) => fullRecipe(title: title, description: description, time: time, price: price, difficulty: difficulty, ingredients: ingredients, steps: steps))
+                context, MaterialPageRoute(builder: (context) => fullRecipe(title: title, description: description, time: time, ingredients: ingredients, steps: steps))
               );
             },
             child: Padding(
