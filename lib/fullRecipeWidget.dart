@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,9 +14,6 @@ class fullRecipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _ingredients = ingredients.toString();
-    _ingredients = _ingredients.replaceAll('[', '');
-    _ingredients = _ingredients.replaceAll(']', '');
 
     return Stack(
       children: [
@@ -48,56 +46,62 @@ class fullRecipe extends StatelessWidget {
                                           ),)
                                       ]
                                   ),
-                                  SizedBox(height: 25),
-                                  Row(
-                                      children: [
-                                        Text.rich(
-                                          TextSpan(
-                                            text: 'Ingredients: ',
-                                            style: GoogleFonts.lexend(
-                                                textStyle: TextStyle(fontWeight: FontWeight.bold)
-                                            ),
-                                            children: <TextSpan>[
-                                              TextSpan(text: _ingredients,
-                                                style: GoogleFonts.lexend(
-                                                    textStyle: TextStyle(fontWeight: FontWeight.normal)
-                                                ),)
-                                            ],
-                                          ),
-                                        )
-                                      ]
+                                  SizedBox(height: 20),
+                                  Center(
+                                    child: Container(
+                                      width: 600,
+                                      child:
+                                      SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                              children: [
+                                                Text('Ingredients: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                                                ...ingredients.map((ingredient) => Container(
+                                                    height: 40,
+                                                    child: Card(
+                                                        elevation: 0,
+                                                        child: Text(ingredient)
+                                                    )
+                                                ))
+                                              ]
+                                          )
+                                      )
+                                    )
                                   ),
                                   SizedBox(height: 25),
-                                  Container(
-                                    height: 350, // specify the desired height
-                                    child: ListView.builder(
-                                      itemCount: steps.length,
-                                      itemBuilder: (context, index) {
-                                        return Row(
-                                            children: [
-                                              SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: Card(
-                                                      elevation: 0,
-                                                      child: Center(
-                                                        child: Text((index + 1).toString())
-                                                      )
-                                                  )
+                                  Center(
+                                    child: Container(
+                                      height: 370,
+                                      width: 600,// specify the desired height
+                                      child: ListView.builder(
+                                        itemCount: steps.length,
+                                        itemBuilder: (context, index) {
+                                          return Row(
+                                              children: [
+                                                SizedBox(
+                                                    height: 50,
+                                                    width: 50,
+                                                    child: Card(
+                                                        elevation: 0,
+                                                        child: Center(
+                                                            child: Text((index + 1).toString())
+                                                        )
+                                                    )
                                                 ),
-                                              Expanded(
+                                                Expanded(
                                                   child: Card(
                                                     elevation: 0,
                                                     child: ListTile(
                                                       title: Text(steps[index]),
                                                     ),
                                                   )
-                                              )
-                                            ]
-                                        );
+                                                )
+                                              ]
+                                          );
                                         },
-                                    ),
-                                  ),
+                                      ),
+                                    )
+                                  )
                                 ]
                             ),
                             Positioned(
