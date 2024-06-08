@@ -49,18 +49,23 @@ class fullRecipe extends StatelessWidget {
                                   SizedBox(height: 20),
                                   Center(
                                     child: Container(
-                                      width: 600,
+                                      width: 590,
                                       child:
                                       SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
                                               children: [
-                                                Text('Ingredients: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                                                Text('Ingredients: ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                                                 ...ingredients.map((ingredient) => Container(
                                                     height: 40,
                                                     child: Card(
                                                         elevation: 0,
-                                                        child: Text(ingredient)
+                                                        child: Center(
+                                                          child: Padding(
+                                                            padding: EdgeInsets.only(left: 15, right: 15),
+                                                            child: Text(ingredient, style: TextStyle(fontSize: 16))
+                                                          )
+                                                        )
                                                     )
                                                 ))
                                               ]
@@ -105,15 +110,15 @@ class fullRecipe extends StatelessWidget {
                                 ]
                             ),
                             Positioned(
-                                bottom: 10, left: 550, right: 0,
+                                bottom: 10, left: 535, right: 0,
                                 child:
                                 Text.rich(
                                     TextSpan(
                                         text: 'Time: ',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                         children: <TextSpan> [
-                                          TextSpan(text: time.toString(), style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal))),
-                                          TextSpan(text: ' mins', style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal)))
+                                          TextSpan(text: time.toString(), style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 16))),
+                                          TextSpan(text: ' mins', style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 16)))
                                         ]
                                     )
                                 )

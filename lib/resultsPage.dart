@@ -38,22 +38,28 @@ class resultsPageState extends State<resultsPage> {
                             SizedBox(height: 20),
                             Row(
                                 children: [
+                                  SizedBox(width: 10),
                                   IconButton(
                                       icon: const Icon(Icons.arrow_back_sharp),
-                                      tooltip: 'Back to search',
                                       onPressed: (){
                                         Navigator.pop(context);
                                       }
                                   ),
-                                  SizedBox(width: 450),
-                                  Text.rich(
-                                    TextSpan(
-                                      text: 'Results for ',
-                                      style: TextStyle(fontSize: 40),
-                                      children: <TextSpan>[
-                                        TextSpan(text: widget.inputText, style: TextStyle(fontStyle: FontStyle.italic, fontSize: 40))
-                                      ],
-                                    ),
+                                  Expanded(
+                                    child:
+                                    Align(
+                                        alignment: Alignment.center,
+                                        child:
+                                        Text.rich(
+                                          TextSpan(
+                                            text: 'Results for ',
+                                            style: TextStyle(fontSize: 40),
+                                            children: <TextSpan>[
+                                              TextSpan(text: widget.inputText, style: TextStyle(fontStyle: FontStyle.italic, fontSize: 40))
+                                            ],
+                                          ),
+                                        )
+                                    )
                                   )
                                 ]
                             ),
@@ -62,21 +68,20 @@ class resultsPageState extends State<resultsPage> {
                               height: 600,
                               width: 550,
                               child: Expanded(
-                                child:
-                                ListView.builder(
-                                    itemCount: recipes.length,
-                                    itemBuilder: ((context, index){
-                                      final recipe = recipes[index];
-                                      String title = recipe['title'];
-                                      String description = recipe['description'];
-                                      List<dynamic> ingredients = recipe['ingredients'];
-                                      List<dynamic> steps = recipe['steps'];
-                                      int time = recipe['time'];
-                                      return summarisedRecipe(title: title, description: description, time: time, ingredients: ingredients, steps: steps);
-                                    })
+                                  child: ListView.builder(
+                                      itemCount: recipes.length,
+                                      itemBuilder: ((context, index){
+                                        final recipe = recipes[index];
+                                        String title = recipe['title'];
+                                        String description = recipe['description'];
+                                        List<dynamic> ingredients = recipe['ingredients'];
+                                        List<dynamic> steps = recipe['steps'];
+                                        int time = recipe['time'];
+                                        return summarisedRecipe(title: title, description: description, time: time, ingredients: ingredients, steps: steps);
+                                      })
+                                  )
                                 )
-                              ),
-                            )
+                              )
                           ]
                       )
                   )

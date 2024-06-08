@@ -24,30 +24,44 @@ class searchPageState extends State<searchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
           children: [
-            SizedBox(
-              width: 250,
-              child: TextField(
-                  controller: myController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Enter an ingredient'
-                  )
-              )
+            Row(
+              children: [
+                Text('Wecome to recipe searcher')
+              ]
             ),
-            IconButton(
-              icon: const Icon(Icons.search),
-              tooltip: 'Click to start the search',
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                        resultsPage(inputText: myController.text))
-                );
-              }
-            )
+            Row(
+                children: [
+                  Text('Enter an ingredient and hit the search button!')
+                ]
+            ),
+            Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        width: 250,
+                        child: TextField(
+                            controller: myController,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Enter an ingredient'
+                            )
+                        )
+                    ),
+                    IconButton(
+                        icon: const Icon(Icons.search),
+                        tooltip: 'Click to start the search',
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  resultsPage(inputText: myController.text))
+                          );
+                        }
+                    )
+                  ]
+              )
           ]
         )
       ),
