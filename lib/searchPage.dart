@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'resultsPage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'helpWidget.dart';
 
 class searchPage extends StatefulWidget {
   const searchPage({super.key});
@@ -23,35 +24,40 @@ class searchPageState extends State<searchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
+      body: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('Wecome to recipe searcher')
+                IconButton(
+                    icon: const Icon(Icons.help_outline),
+                    onPressed: (){
+                      Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => helpCard())
+                      );
+                    }
+                )
               ]
             ),
-            Row(
-                children: [
-                  Text('Enter an ingredient and hit the search button!')
-                ]
-            ),
+            SizedBox(height: 200),
+            Text('Welcome to Recipe Searcher', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+            Text('Enter an ingredient and hit the search button!', style: TextStyle(fontSize: 20)),
+            SizedBox(height: 20),
             Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                        width: 250,
-                        child: TextField(
-                            controller: myController,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Enter an ingredient'
-                            )
-                        )
+                          width: 250,
+                          child: TextField(
+                              controller: myController,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Start typing...'
+                              )
+                          )
                     ),
                     IconButton(
                         icon: const Icon(Icons.search),
-                        tooltip: 'Click to start the search',
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -63,7 +69,6 @@ class searchPageState extends State<searchPage> {
                   ]
               )
           ]
-        )
       ),
     );
   }
