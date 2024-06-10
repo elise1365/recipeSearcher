@@ -17,6 +17,7 @@ class helpCard extends StatelessWidget {
             width: 700,
             height: 200,
             child: Card(
+                color: Color(0xFFFFD151),
               child: Padding(
                 padding: EdgeInsets.all(20),
                   child: Column(
@@ -43,7 +44,7 @@ class helpCard extends StatelessWidget {
                                   text:
                                         TextSpan(
                                             text: 'Report any issues/ feature requests/ questions',
-                                            style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 18),
+                                            style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 18)),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = (){
                                                 launch('https://forms.gle/WNgnebYdLPPvQqRTA');
@@ -59,7 +60,7 @@ class helpCard extends StatelessWidget {
                               RichText(
                                 text: TextSpan(
                                       text: 'Github',
-                                      style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 18),
+                                      style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 18)),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = (){
                                           launch('https://github.com/elise1365');

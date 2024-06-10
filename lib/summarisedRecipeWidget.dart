@@ -24,7 +24,7 @@ class summarisedRecipe extends StatelessWidget {
           width: 600,
           height: 150,
           child: Card(
-              color: Color(0xFF7087B6),
+              color: Color(0xFF8CBCB9),
               clipBehavior: Clip.hardEdge,
               child: InkWell(
                       onTap: (){
@@ -90,7 +90,7 @@ class summarisedRecipe extends StatelessWidget {
                                       Text.rich(
                                           TextSpan(
                                               text: 'Time: ',
-                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                              style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.bold)),
                                               children: <TextSpan> [
                                                 TextSpan(text: time.toString(), style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal))),
                                                 TextSpan(text: ' mins', style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal)))

@@ -38,7 +38,7 @@ class fullRecipe extends StatelessWidget {
                   width: 700,
                   height: 600,
                   child: Card(
-                    color: Color(0xFFA1B0CE),
+                    color: Color(0xFFC27684),
                     clipBehavior: Clip.hardEdge,
                     child: Padding(
                         padding: const EdgeInsets.all(20),
@@ -71,7 +71,7 @@ class fullRecipe extends StatelessWidget {
                                                 scrollDirection: Axis.horizontal,
                                                 child: Row(
                                                     children: [
-                                                      Text('Ingredients: ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                                      Text('Ingredients: ', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
                                                       ...ingredients.map((ingredient) => Container(
                                                           height: 40,
                                                           child: Card(
@@ -79,7 +79,7 @@ class fullRecipe extends StatelessWidget {
                                                               child: Center(
                                                                   child: Padding(
                                                                       padding: EdgeInsets.only(left: 15, right: 15),
-                                                                      child: Text(ingredient, style: TextStyle(fontSize: 16))
+                                                                      child: Text(ingredient, style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16)))
                                                                   )
                                                               )
                                                           )
@@ -105,7 +105,7 @@ class fullRecipe extends StatelessWidget {
                                                         child: Card(
                                                             elevation: 0,
                                                             child: Center(
-                                                                child: Text((index + 1).toString())
+                                                                child: Text((index + 1).toString(), style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16)))
                                                             )
                                                         )
                                                     ),
@@ -113,7 +113,7 @@ class fullRecipe extends StatelessWidget {
                                                         child: Card(
                                                           elevation: 0,
                                                           child: ListTile(
-                                                            title: Text(steps[index]),
+                                                            title: Text(steps[index], style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16))),
                                                           ),
                                                         )
                                                     )
@@ -131,9 +131,9 @@ class fullRecipe extends StatelessWidget {
                                   Text.rich(
                                       TextSpan(
                                           text: 'Time: ',
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                          style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                                           children: <TextSpan> [
-                                            TextSpan(text: time.toString(), style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 16))),
+                                            TextSpan(text: time.toString(), style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 16), )),
                                             TextSpan(text: ' mins', style: GoogleFonts.lexend(textStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 16)))
                                           ]
                                       )

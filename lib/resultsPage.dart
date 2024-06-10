@@ -28,16 +28,16 @@ class resultsPageState extends State<resultsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text.rich(
-            TextSpan(
-              text: 'Results for ',
-              style: TextStyle(fontSize: 40),
-              children: <TextSpan>[
-                TextSpan(text: widget.inputText, style: TextStyle(fontStyle: FontStyle.italic, fontSize: 40))
-              ],
-            ),
-          )
-        ),
+              child: Text.rich(
+                TextSpan(
+                  text: 'Recipes using ',
+                  style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40)),
+                  children: <TextSpan>[
+                    TextSpan(text: widget.inputText, style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)))
+                  ],
+                ),
+              )
+          ),
         actions: <Widget>[
           IconButton(
               icon: const Icon(Icons.help_outline),

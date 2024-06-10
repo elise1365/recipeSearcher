@@ -16,7 +16,6 @@ class searchPageState extends State<searchPage> {
 
   @override
   void dispose() {
-    // Dispose of the controller when the widget is disposed.
     myController.dispose();
     super.dispose();
   }
@@ -40,8 +39,8 @@ class searchPageState extends State<searchPage> {
               ]
             ),
             SizedBox(height: 200),
-            Text('Welcome to Recipe Searcher', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-            Text('Enter an ingredient and hit the search button!', style: TextStyle(fontSize: 20)),
+            Text('Welcome to Recipe Searcher', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
+            Text('Enter an ingredient and hit the search button!', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 20))),
             SizedBox(height: 20),
             Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -50,9 +49,14 @@ class searchPageState extends State<searchPage> {
                           width: 250,
                           child: TextField(
                               controller: myController,
+                              style: GoogleFonts.lexend(textStyle: TextStyle()),
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Start typing...'
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20)), borderSide: BorderSide(color: Color(0xFFF5937A))),
+                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20)), borderSide: BorderSide(color: Color(0xFFF5937A))),
+                                  hintText: 'Start typing...',
+                                  filled: true,
+                                  fillColor: Color(0xFFF5937A)
                               )
                           )
                     ),
