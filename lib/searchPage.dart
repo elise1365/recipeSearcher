@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'resultsPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'helpWidget.dart';
+import 'signUpPage.dart';
 
 class searchPage extends StatefulWidget {
   const searchPage({super.key});
@@ -38,7 +40,7 @@ class searchPageState extends State<searchPage> {
                 )
               ]
             ),
-            SizedBox(height: 200),
+            SizedBox(height: 180),
             Text('Welcome to Recipe Searcher', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
             Text('Enter an ingredient and hit the search button!', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 20))),
             SizedBox(height: 20),
@@ -69,10 +71,47 @@ class searchPageState extends State<searchPage> {
                                   resultsPage(inputText: myController.text))
                           );
                         }
+                    ),
+                  ]
+              ),
+            SizedBox(height: 20),
+            RichText(
+                text:
+                TextSpan(
+                    text: 'Create an account ',
+                    style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 20)),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>
+                                signUp())
+                        );
+                      },
+                  children:[
+                    TextSpan(
+                      text: 'to favourite recipes',
+                        style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.black, decoration: TextDecoration.none, fontSize: 20))
                     )
                   ]
-              )
-          ]
+                ),
+            ),
+            RichText(
+              text:
+              TextSpan(
+                text: 'Sign in',
+                style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 20)),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>
+                            resultsPage(inputText: myController.text))
+                    );
+                  },
+              ),
+            )
+          ],
       ),
     );
   }
