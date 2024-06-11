@@ -1,11 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recipe_thing/resultsPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'helpWidget.dart';
 import 'signUpPage.dart';
 import 'searchPage.dart';
+import 'errorWidget.dart';
 
 class signIn extends StatefulWidget{
 
@@ -15,11 +17,13 @@ class signIn extends StatefulWidget{
 
 class signInState extends State<signIn>{
 
-  final myController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   void dispose() {
-    myController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
@@ -47,7 +51,7 @@ class signInState extends State<signIn>{
                   SizedBox(
                       width: 320,
                       child: TextField(
-                          controller: myController,
+                          controller: emailController,
                           style: GoogleFonts.lexend(textStyle: TextStyle()),
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -63,7 +67,7 @@ class signInState extends State<signIn>{
                   SizedBox(
                       width: 320,
                       child: TextField(
-                          controller: myController,
+                          controller: passwordController,
                           style: GoogleFonts.lexend(textStyle: TextStyle()),
                           decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -81,8 +85,29 @@ class signInState extends State<signIn>{
                       height: 35,
                       child: TextButton(
                           child: Text('Done', style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.black, fontSize: 16))),
-                          onPressed: (){
+                          onPressed: () async {
+                            try {
+                              // Attempt to sign in the user
+                              final response = await Supabase.instance.client.auth.signInWithPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text
+                              );
 
+                              final User? user = response.user;
+                              if (user != null) {
+                                print('Sign in successful');
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => searchPage())
+                                );
+                              } else {
+                                print('Sign in unsuccessful');
+                                displayErrorMessage(errorMessage: 'Sign in unsuccessful');
+                              }
+                            } catch (error) {
+                              print('Sign in error: $error');
+                              displayErrorMessage(errorMessage: 'Sign in unsuccessful');
+                            }
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Color(0xFF8997D1)

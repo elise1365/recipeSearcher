@@ -1,10 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_thing/resultsPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:supabase/supabase.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:get/get.dart';
+import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'helpWidget.dart';
 import 'signInPage.dart';
@@ -88,10 +85,7 @@ class signUpState extends State<signUp>{
               child: TextButton(
                   child: Text('Done', style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.black, fontSize: 16))),
                   onPressed: () async {
-                    // final response = await Supabase.auth.signUp(
-                    //   email: emailController.text,
-                    //   password: passwordController.text
-                    // );
+                    // Supabase.instance.client.auth.signOut();
                   },
                   style: TextButton.styleFrom(
                       backgroundColor: Color(0xFF8997D1)
