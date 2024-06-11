@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'searchPage.dart';
 import 'resultsPage.dart';
+import 'signUpPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +16,6 @@ void main() async {
       .from('Recipes')
       .select('title');
 
-
   runApp(MyApp());
 }
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Recipe Searcher',
       debugShowCheckedModeBanner: false,
-      home: searchPage(),
+      home: signUp(),
     );
   }
 }

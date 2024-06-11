@@ -4,6 +4,7 @@ import 'resultsPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'helpWidget.dart';
 import 'signUpPage.dart';
+import 'signInPage.dart';
 
 class searchPage extends StatefulWidget {
   const searchPage({super.key});
@@ -54,11 +55,11 @@ class searchPageState extends State<searchPage> {
                               style: GoogleFonts.lexend(textStyle: TextStyle()),
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-                                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20)), borderSide: BorderSide(color: Color(0xFFF5937A))),
-                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20)), borderSide: BorderSide(color: Color(0xFFF5937A))),
+                                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20)), borderSide: BorderSide(color: Color(0xFF8997D1))),
+                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20)), borderSide: BorderSide(color: Color(0xFF8997D1))),
                                   hintText: 'Start typing...',
                                   filled: true,
-                                  fillColor: Color(0xFFF5937A)
+                                  fillColor: Color(0xFF8997D1)
                               )
                           )
                     ),
@@ -106,7 +107,7 @@ class searchPageState extends State<searchPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) =>
-                            resultsPage(inputText: myController.text))
+                            signIn())
                     );
                   },
               ),
