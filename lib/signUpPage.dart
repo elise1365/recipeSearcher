@@ -7,6 +7,8 @@ import 'helpWidget.dart';
 import 'signInPage.dart';
 import 'searchPage.dart';
 import 'favouritesPage.dart';
+import 'errorWidget.dart';
+import 'dart:async';
 
 class signUp extends StatefulWidget{
 
@@ -19,11 +21,27 @@ class signUpState extends State<signUp>{
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool showErrorMessage = false;
+  Timer? timer;
+
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  void showWidget(){
+    setState((){
+      showErrorMessage = true;
+    });
+
+    timer?.cancel();
+    timer = Timer(Duration(seconds: 3), (){
+      setState((){
+        showErrorMessage = false;
+      });
+    });
   }
 
   @override
@@ -46,6 +64,9 @@ class signUpState extends State<signUp>{
         child: Column(
           children: [
             SizedBox(height: 140),
+            if(showErrorMessage == true)
+              displayErrorMessage(errorMessage: 'Sign in was unsuccessful, please try again'),
+            SizedBox(height: 10),
             Text('Create an account', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 30))),
             SizedBox(height: 20),
             SizedBox(
@@ -96,17 +117,18 @@ class signUpState extends State<signUp>{
                       final User? user = response.user;
                       if (user != null) {
                         print('Sign in successful');
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => favouritesPage())
-                        );
+                        // print(response.user?.id);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(builder: (context) => favouritesPage())
+                        // );
                       } else {
                         print('Sign in unsuccessful');
-                        // showWidget();
+                        showWidget();
                       }
                     } catch (error) {
-                      print('Sign in unsuccessful: $error');
-                      // showWidget();
+                      print('Sign in unsuccessful');
+                      showWidget();
                     }
                   },
                   style: TextButton.styleFrom(

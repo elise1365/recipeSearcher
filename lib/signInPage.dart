@@ -116,10 +116,10 @@ class signInState extends State<signIn>{
                               final User? user = response.user;
                               if (user != null) {
                                 print('Sign in successful');
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => favouritesPage())
-                                );
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(builder: (context) => favouritesPage())
+                                // );
                               } else {
                                 print('Sign in unsuccessful');
                                 showWidget();

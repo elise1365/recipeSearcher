@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'searchPage.dart';
 import 'resultsPage.dart';
 import 'signInPage.dart';
+import 'favouritesPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Recipe Searcher',
       debugShowCheckedModeBanner: false,
-      home: signIn(),
+      home: favouritesPage(recipeIds: [2,3],),
     );
   }
 }
