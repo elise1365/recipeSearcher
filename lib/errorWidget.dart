@@ -9,13 +9,13 @@ class displayErrorMessage extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return SizedBox(
-      height: 54,
+      height: 60,
       child: Center(
           child: Card(
               color: Colors.red,
             child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Text(errorMessage, style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16)))
+              padding: EdgeInsets.all(15),
+              child: Text(errorMessage, style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16, color: Colors.white)))
             )
           )
         )

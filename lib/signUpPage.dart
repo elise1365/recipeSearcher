@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'helpWidget.dart';
 import 'signInPage.dart';
 import 'searchPage.dart';
+import 'favouritesPage.dart';
 
 class signUp extends StatefulWidget{
 
@@ -85,7 +86,28 @@ class signUpState extends State<signUp>{
               child: TextButton(
                   child: Text('Done', style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.black, fontSize: 16))),
                   onPressed: () async {
-                    // Supabase.instance.client.auth.signOut();
+                    try {
+                      // Attempt to sign in the user
+                      final response = await Supabase.instance.client.auth.signUp(
+                          email: emailController.text,
+                          password: passwordController.text
+                      );
+
+                      final User? user = response.user;
+                      if (user != null) {
+                        print('Sign in successful');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => favouritesPage())
+                        );
+                      } else {
+                        print('Sign in unsuccessful');
+                        // showWidget();
+                      }
+                    } catch (error) {
+                      print('Sign in unsuccessful: $error');
+                      // showWidget();
+                    }
                   },
                   style: TextButton.styleFrom(
                       backgroundColor: Color(0xFF8997D1)
