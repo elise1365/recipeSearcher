@@ -118,10 +118,10 @@ class signUpState extends State<signUp>{
                       if (user != null) {
                         print('Sign in successful');
                         // print(response.user?.id);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(builder: (context) => favouritesPage())
-                        // );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => searchPage())
+                        );
                       } else {
                         print('Sign in unsuccessful');
                         showWidget();

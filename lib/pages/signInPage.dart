@@ -8,6 +8,7 @@ import 'signUpPage.dart';
 import 'searchPage.dart';
 import '../widgets/errorWidget.dart';
 import 'favouritesPage.dart';
+import '../dbFunctions.dart';
 
 class signIn extends StatefulWidget{
 
@@ -116,6 +117,7 @@ class signInState extends State<signIn>{
                               final User? user = response.user;
                               if (user != null) {
                                 print('Sign in successful');
+                                // retrieveUserFavourites(user.id as int);
                                 // Navigator.push(
                                 //     context,
                                 //     MaterialPageRoute(builder: (context) => favouritesPage())

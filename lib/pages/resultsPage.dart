@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_thing/dbFunctions.dart';
 import 'searchPage.dart';
 import '../widgets/summarisedRecipeWidget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -18,14 +19,7 @@ class resultsPage extends StatefulWidget {
 class resultsPageState extends State<resultsPage> {
 
   @override
-
   Widget build(BuildContext context) {
-    String _inputText = widget.inputText;
-    final _future = Supabase.instance.client
-        .from('Recipes')
-        .select()
-        .contains('ingredients', [_inputText]);
-
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -51,7 +45,8 @@ class resultsPageState extends State<resultsPage> {
         ]
       ),
       body: FutureBuilder(
-        future: _future,
+        // future: _future,
+        future: fetchSpecificRecipesByIngredients(widget.inputText),
         builder: (context, snapshot){
           if (!snapshot.hasData){
             return const Center(child: CircularProgressIndicator());
@@ -66,9 +61,7 @@ class resultsPageState extends State<resultsPage> {
                             Container(
                               height: 600,
                               width: 550,
-                              child: Expanded(
-                                  child: listOfSummarisedRecipes(listOfRecipes: recipes)
-                                )
+                              child: listOfSummarisedRecipes(listOfRecipes: recipes)
                               )
                           ]
                       )

@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/helpWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../widgets/summarisedRecipeWidget.dart';
 import '../widgets/listOfSummarisedRecipesWidget.dart';
+import 'package:flutter/gestures.dart';
+import '../dbFunctions.dart';
 
 class favouritesPage extends StatefulWidget{
   List recipeIds = [];
@@ -46,16 +47,7 @@ class favouritesPageState extends State<favouritesPage>{
                   return const Center(child: CircularProgressIndicator());
                 }
                 final recipes = snapshot.data!;
-                List<Map<String, dynamic>> selectedRecipes = [];
-
-                for(int i=0;i<recipes.length;i++){
-                  for (int y=0;y<widget.recipeIds.length;y++){
-                    final recipe = recipes[i];
-                    if(recipe['id'] == widget.recipeIds[y]){
-                      selectedRecipes.add(recipe);
-                    }
-                  }
-                }
+                List<Map<String, dynamic>> selectedRecipes = fetchSpecificRecipesByIds(widget.recipeIds, recipes) as List<Map<String, dynamic>>;
 
                 return
                   SingleChildScrollView(
@@ -64,7 +56,7 @@ class favouritesPageState extends State<favouritesPage>{
                               children: [
                                 SizedBox(height: 20),
                                     Container(
-                                      height: 580,
+                                      height: 530,
                                         width: 550,
                                         child: listOfSummarisedRecipes(listOfRecipes: selectedRecipes)
                                     )
@@ -73,7 +65,41 @@ class favouritesPageState extends State<favouritesPage>{
                       )
                   );
               }
-          )
+          ),
+          Row(
+              children: [
+                SizedBox(width: 500),
+                RichText(
+                    text: TextSpan(
+                        text: 'Return to search',
+                        style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 20, color: Colors.blue, decoration: TextDecoration.underline)),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = (){
+                            Navigator.push(
+                                context, MaterialPageRoute(builder: (context) => searchPage())
+                            );
+                          },
+                        children:[
+                          TextSpan(
+                              text: ' or ',
+                              style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 20, color: Colors.black, decoration: TextDecoration.none))
+                          ),
+                          TextSpan(
+                            text: 'Sign out',
+                            style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 20, color: Colors.blue, decoration: TextDecoration.underline)),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = (){
+                                Supabase.instance.client.auth.signOut();
+                                Navigator.push(
+                                    context, MaterialPageRoute(builder: (context) => searchPage())
+                                );
+                              }
+                          )
+                        ]
+                        )
+                    )
+                  ]
+              )
           ]
         )
       )
