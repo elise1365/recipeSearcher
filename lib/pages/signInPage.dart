@@ -67,7 +67,7 @@ class signInState extends State<signIn>{
                   if(showErrorMessage == true)
                     displayErrorMessage(errorMessage: 'Sign in was unsuccessful, please try again'),
                     SizedBox(height: 10),
-                  Text('Sign in', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 30))),
+                  Text('Sign in', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40))),
                   SizedBox(height: 20),
                   SizedBox(
                       width: 320,

@@ -9,6 +9,7 @@ import 'searchPage.dart';
 import 'favouritesPage.dart';
 import '../widgets/errorWidget.dart';
 import 'dart:async';
+import '../dbFunctions.dart';
 
 class signUp extends StatefulWidget{
 
@@ -67,7 +68,7 @@ class signUpState extends State<signUp>{
             if(showErrorMessage == true)
               displayErrorMessage(errorMessage: 'Sign in was unsuccessful, please try again'),
             SizedBox(height: 10),
-            Text('Create an account', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 30))),
+            Text('Create an account', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40))),
             SizedBox(height: 20),
             SizedBox(
                 width: 320,
@@ -117,7 +118,7 @@ class signUpState extends State<signUp>{
                       final User? user = response.user;
                       if (user != null) {
                         print('Sign in successful');
-                        // print(response.user?.id);
+                        addUserToUsersDb(user.id);
                         Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => searchPage())

@@ -32,7 +32,7 @@ class helpCard extends StatelessWidget {
                               SizedBox(width: 10),
                               Text(
                                 'Help',
-                                  style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))
+                                  style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 30))
                               )
                             ]
                         ),

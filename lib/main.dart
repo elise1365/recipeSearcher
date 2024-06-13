@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'pages/searchPage.dart';
 import 'pages/resultsPage.dart';
 import 'pages/signInPage.dart';
+import 'pages/signUpPage.dart';
 import 'pages/favouritesPage.dart';
 import '../dbFunctions.dart';
 
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // home: favouritesPage(recipeIds: [3,2])
       // home: resultsPage(inputText: 'garlic')
-      home: signIn()
+      // home: signIn()
+      home: signUp()
     );
   }
 }

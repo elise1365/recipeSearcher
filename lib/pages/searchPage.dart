@@ -42,7 +42,7 @@ class searchPageState extends State<searchPage> {
               ]
             ),
             SizedBox(height: 180),
-            Text('Welcome to Recipe Searcher', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
+            Text('Welcome to Recipe Searcher', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40))),
             Text('Enter an ingredient and hit the search button!', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 20))),
             SizedBox(height: 20),
             Row(

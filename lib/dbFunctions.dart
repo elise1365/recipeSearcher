@@ -63,3 +63,11 @@ Future<List> retrieveUserFavourites(String userID) async {
   }
 
 }
+
+void addUserToUsersDb(String userID) async {
+  final favourites = await Supabase.instance.client
+      .from('Users')
+      .insert([
+        {'userId': userID}
+      ]);
+}
