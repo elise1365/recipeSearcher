@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'resultsPage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'helpWidget.dart';
+import '../widgets/helpWidget.dart';
 import 'signUpPage.dart';
 import 'signInPage.dart';
 

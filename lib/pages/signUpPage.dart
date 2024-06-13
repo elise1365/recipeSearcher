@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'helpWidget.dart';
+import '../widgets/helpWidget.dart';
 import 'signInPage.dart';
 import 'searchPage.dart';
 import 'favouritesPage.dart';
-import 'errorWidget.dart';
+import '../widgets/errorWidget.dart';
 import 'dart:async';
 
 class signUp extends StatefulWidget{

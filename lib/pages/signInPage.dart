@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
-import 'helpWidget.dart';
+import '../widgets/helpWidget.dart';
 import 'signUpPage.dart';
 import 'searchPage.dart';
-import 'errorWidget.dart';
+import '../widgets/errorWidget.dart';
 import 'favouritesPage.dart';
 
 class signIn extends StatefulWidget{

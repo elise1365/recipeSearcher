@@ -1,9 +1,10 @@
 import 'searchPage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'helpWidget.dart';
+import '../widgets/helpWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'summarisedRecipeWidget.dart';
+import '../widgets/summarisedRecipeWidget.dart';
+import '../widgets/listOfSummarisedRecipesWidget.dart';
 
 class favouritesPage extends StatefulWidget{
   List recipeIds = [];
@@ -23,7 +24,7 @@ class favouritesPageState extends State<favouritesPage>{
 
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Favourite recipes', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40)))),
+        title: Column(children: [SizedBox(height: 15), Center(child: Text('Favourite recipes', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40))))]),
         actions: [
           IconButton(
               icon: const Icon(Icons.help_outline),
@@ -45,6 +46,17 @@ class favouritesPageState extends State<favouritesPage>{
                   return const Center(child: CircularProgressIndicator());
                 }
                 final recipes = snapshot.data!;
+                List<Map<String, dynamic>> selectedRecipes = [];
+
+                for(int i=0;i<recipes.length;i++){
+                  for (int y=0;y<widget.recipeIds.length;y++){
+                    final recipe = recipes[i];
+                    if(recipe['id'] == widget.recipeIds[y]){
+                      selectedRecipes.add(recipe);
+                    }
+                  }
+                }
+
                 return
                   SingleChildScrollView(
                       child: Center(
@@ -54,23 +66,7 @@ class favouritesPageState extends State<favouritesPage>{
                                     Container(
                                       height: 580,
                                         width: 550,
-                                        child: ListView.builder(
-                                            itemCount: recipes.length,
-                                            itemBuilder: ((context, index){
-                                              final recipe = recipes[index];
-                                              String title = recipe['title'];
-                                              String description = recipe['description'];
-                                              List<dynamic> ingredients = recipe['ingredients'];
-                                              List<dynamic> steps = recipe['steps'];
-                                              int time = recipe['time'];
-                                              return summarisedRecipe(
-                                                  title: title,
-                                                  description: description,
-                                                  time: time,
-                                                  ingredients: ingredients,
-                                                  steps: steps);
-                                            })
-                                        )
+                                        child: listOfSummarisedRecipes(listOfRecipes: selectedRecipes)
                                     )
                               ]
                           )

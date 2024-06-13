@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'searchPage.dart';
-import 'summarisedRecipeWidget.dart';
+import '../widgets/summarisedRecipeWidget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'helpWidget.dart';
+import '../widgets/helpWidget.dart';
+import '../widgets/listOfSummarisedRecipesWidget.dart';
 
 class resultsPage extends StatefulWidget {
   String inputText = '';
@@ -66,18 +67,7 @@ class resultsPageState extends State<resultsPage> {
                               height: 600,
                               width: 550,
                               child: Expanded(
-                                  child: ListView.builder(
-                                      itemCount: recipes.length,
-                                      itemBuilder: ((context, index){
-                                        final recipe = recipes[index];
-                                        String title = recipe['title'];
-                                        String description = recipe['description'];
-                                        List<dynamic> ingredients = recipe['ingredients'];
-                                        List<dynamic> steps = recipe['steps'];
-                                        int time = recipe['time'];
-                                        return summarisedRecipe(title: title, description: description, time: time, ingredients: ingredients, steps: steps);
-                                      })
-                                  )
+                                  child: listOfSummarisedRecipes(listOfRecipes: recipes)
                                 )
                               )
                           ]
