@@ -1,3 +1,4 @@
+import 'package:recipe_thing/pages/favouritesPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final supabase = Supabase.initialize(
@@ -37,10 +38,28 @@ List<Map<String, dynamic>> fetchSpecificRecipesByIds(List ids, final allRecipes)
   return selectedRecipes;
 }
 
-Future<void> retrieveUserFavourites(int userID) async {
+Future<List> retrieveUserFavourites(String userID) async {
   final favourites = await Supabase.instance.client
       .from('Users')
-      .select();
+      .select('recipesIDs')
+      .eq('userId', userID);
 
-  print(favourites);
+  Map<String, dynamic> favourites1 = favourites[0];
+
+  List recipeIds = [];
+
+  if (favourites1['recipesIDs'] is List) {
+    List<dynamic> recipeIds = favourites1['recipesIDs'];
+
+    // Optional: Process each ID if needed
+    for (int i = 0; i < recipeIds.length; i++) {
+      // print('Index $i: ${recipeIds[i]}');
+    }
+    // print(recipeIds);
+    return recipeIds;
+
+  } else {
+    throw Exception('Invalid data format');
+  }
+
 }

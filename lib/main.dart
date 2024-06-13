@@ -4,6 +4,7 @@ import 'pages/searchPage.dart';
 import 'pages/resultsPage.dart';
 import 'pages/signInPage.dart';
 import 'pages/favouritesPage.dart';
+import '../dbFunctions.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,8 +26,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Recipe Searcher',
       debugShowCheckedModeBanner: false,
-      home: favouritesPage(recipeIds: [3,2])
+      // home: favouritesPage(recipeIds: [3,2])
       // home: resultsPage(inputText: 'garlic')
+      home: signIn()
     );
   }
 }

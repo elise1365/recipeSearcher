@@ -109,7 +109,8 @@ class signInState extends State<signIn>{
                           onPressed: () async {
                             try {
                               // Attempt to sign in the user
-                              final response = await Supabase.instance.client.auth.signInWithPassword(
+                              final response = await Supabase.instance.client
+                                  .auth.signInWithPassword(
                                   email: emailController.text,
                                   password: passwordController.text
                               );
@@ -117,17 +118,19 @@ class signInState extends State<signIn>{
                               final User? user = response.user;
                               if (user != null) {
                                 print('Sign in successful');
-                                // retrieveUserFavourites(user.id as int);
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(builder: (context) => favouritesPage())
-                                // );
+                                List favourites = await retrieveUserFavourites(user.id);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>
+                                        favouritesPage(recipeIds: favourites))
+                                );
                               } else {
                                 print('Sign in unsuccessful');
                                 showWidget();
                               }
                             } catch (error) {
                               print('Sign in unsuccessful');
+                              print(111);
                               showWidget();
                             }
                           },
