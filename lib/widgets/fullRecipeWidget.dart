@@ -2,19 +2,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'helpWidget.dart';
+import 'package:recipe_thing/dbFunctions.dart';
 
-class fullRecipe extends StatelessWidget {
-
+class fullRecipe extends StatefulWidget{
   String title = '';
   String description = '';
   int time = 0;
   List ingredients = [];
   List steps = [];
+  int id = 0;
 
-  fullRecipe({required this.title, required this.description, required this.time, required this.ingredients, required this.steps});
+  fullRecipe({required this.title, required this.description, required this.time, required this.ingredients, required this.steps, required this.id});
+
+  @override
+  State<fullRecipe> createState() => fullRecipeState();
+}
+
+class fullRecipeState extends State<fullRecipe> {
+  bool isFilled = false;
+
+  void toggleIcon() {
+      isFilled = !isFilled;
+  }
 
   @override
   Widget build(BuildContext context) {
+    String title = widget.title;
+    String description = widget.description;
+    int time = widget.time;
+    List ingredients = widget.ingredients;
+    List steps = widget.steps;
 
     return Stack(
       children: [
@@ -124,6 +141,18 @@ class fullRecipe extends StatelessWidget {
                                         )
                                     )
                                   ]
+                              ),
+                              Positioned(
+                                right: 10,
+                                  child: IconButton(
+                                    icon: Icon(isFilled ? Icons.star : Icons.star_border_outlined),
+                                    onPressed: (){
+                                      setState(() {
+                                        toggleIcon();
+                                        addRecipeToUserFavourites(widget.id);
+                                      });
+                                    }
+                                  )
                               ),
                               Positioned(
                                   bottom: 10, left: 535, right: 0,

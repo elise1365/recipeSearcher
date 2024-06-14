@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:recipe_thing/pages/favouritesPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -51,7 +52,6 @@ Future<List> retrieveUserFavourites(String userID) async {
   if (favourites1['recipesIDs'] is List) {
     List<dynamic> recipeIds = favourites1['recipesIDs'];
 
-    // Optional: Process each ID if needed
     for (int i = 0; i < recipeIds.length; i++) {
       // print('Index $i: ${recipeIds[i]}');
     }
@@ -70,4 +70,34 @@ void addUserToUsersDb(String userID) async {
       .insert([
         {'userId': userID}
       ]);
+}
+
+void addRecipeToUserFavourites(int recipeId) async {
+  final User? user = Supabase.instance.client.auth.currentUser;
+  print(user);
+
+  if(user == null){
+    print('user not logged in');
+  }
+  else {
+    // get the list of users current favoruites
+    final currentFavouriteRecipes = await Supabase.instance.client
+        .from('Users')
+        .select('recipesIDs')
+        .eq('userId', user.id);
+
+    Map<String,
+        dynamic> currentFavouriteRecipesMap = currentFavouriteRecipes[0];
+    List currentFavouriteRecipesList = currentFavouriteRecipesMap['recipesIDs'];
+
+    // add the recipeId passed to the list
+    currentFavouriteRecipesList.add(recipeId);
+
+    // add the edited list to the Users table in the db
+    final response = await Supabase.instance.client
+        .from('Users')
+        .update({'recipesIDs': currentFavouriteRecipesList})
+        .eq('userId', user.id);
+
+  }
 }

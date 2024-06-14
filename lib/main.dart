@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
       // home: favouritesPage(recipeIds: [3,2])
       // home: resultsPage(inputText: 'garlic')
       // home: signIn()
-      home: signUp()
+      // home: signUp()
+      home: searchPage()
     );
   }
 }

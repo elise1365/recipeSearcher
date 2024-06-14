@@ -11,8 +11,9 @@ class summarisedRecipe extends StatelessWidget {
   int time = 0;
   List ingredients = [];
   List steps = [];
+  int id = 0;
 
-  summarisedRecipe({required this.title, required this.description, required this.time, required this.ingredients, required this.steps});
+  summarisedRecipe({required this.title, required this.description, required this.time, required this.ingredients, required this.steps, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class summarisedRecipe extends StatelessWidget {
               child: InkWell(
                       onTap: (){
                         Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => fullRecipe(title: title, description: description, time: time, ingredients: ingredients, steps: steps))
+                            context, MaterialPageRoute(builder: (context) => fullRecipe(title: title, description: description, time: time, ingredients: ingredients, steps: steps, id: id))
                         );
                       },
                       child: Padding(

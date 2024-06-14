@@ -17,6 +17,7 @@ class favouritesPage extends StatefulWidget{
 }
 
 class favouritesPageState extends State<favouritesPage>{
+
   @override
   Widget build(BuildContext){
     final _future = Supabase.instance.client
@@ -66,6 +67,7 @@ class favouritesPageState extends State<favouritesPage>{
                   );
               }
           ),
+          SizedBox(height: 15),
           Row(
               children: [
                 SizedBox(width: 500),

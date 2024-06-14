@@ -16,6 +16,7 @@ class listOfSummarisedRecipes extends StatelessWidget {
         itemCount: listOfRecipes.length,
         itemBuilder: ((context, index){
           final recipe = listOfRecipes[index];
+          int id = recipe['id'];
           String title = recipe['title'];
           String description = recipe['description'];
           List<dynamic> ingredients = recipe['ingredients'];
@@ -26,7 +27,8 @@ class listOfSummarisedRecipes extends StatelessWidget {
               description: description,
               time: time,
               ingredients: ingredients,
-              steps: steps);
+              steps: steps,
+              id: id);
         })
     );
   }
