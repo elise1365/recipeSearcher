@@ -19,14 +19,15 @@ class fullRecipe extends StatefulWidget{
 }
 
 class fullRecipeState extends State<fullRecipe> {
-  bool isFilled = false;
 
-  void toggleIcon() {
-      isFilled = !isFilled;
+  @override
+  Future<bool> _isfavourite() async {
+    return await isAlreadyInFavourites(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
+
     String title = widget.title;
     String description = widget.description;
     int time = widget.time;
@@ -55,7 +56,7 @@ class fullRecipeState extends State<fullRecipe> {
                   width: 700,
                   height: 600,
                   child: Card(
-                    color: Color(0xFFC27684),
+                    color: Color(0xFFAA80B3),
                     clipBehavior: Clip.hardEdge,
                     child: Padding(
                         padding: const EdgeInsets.all(20),
@@ -144,13 +145,24 @@ class fullRecipeState extends State<fullRecipe> {
                               ),
                               Positioned(
                                 right: 10,
-                                  child: IconButton(
-                                    icon: Icon(isFilled ? Icons.star : Icons.star_border_outlined),
-                                    onPressed: (){
-                                      setState(() {
-                                        toggleIcon();
-                                        addRecipeToUserFavourites(widget.id);
-                                      });
+                                  child:FutureBuilder<bool>(
+                                    future: _isfavourite(),
+                                    builder: (context, snapshot) {
+                                      bool isFilled = snapshot.data ?? false;
+                                          return IconButton(
+                                              icon: Icon(isFilled ? Icons.done : Icons.add),
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (isFilled) {
+                                                    removeRecipeFromUserFavourites(
+                                                        widget.id);
+                                                  } else {
+                                                    addRecipeToUserFavourites(
+                                                        widget.id);
+                                                  }
+                                                });
+                                              }
+                                          );
                                     }
                                   )
                               ),

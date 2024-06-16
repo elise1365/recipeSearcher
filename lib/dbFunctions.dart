@@ -74,20 +74,19 @@ void addUserToUsersDb(String userID) async {
 
 void addRecipeToUserFavourites(int recipeId) async {
   final User? user = Supabase.instance.client.auth.currentUser;
-  print(user);
+  // print(user);
 
   if(user == null){
     print('user not logged in');
   }
   else {
-    // get the list of users current favoruites
+    // get the list of users current favourites
     final currentFavouriteRecipes = await Supabase.instance.client
         .from('Users')
         .select('recipesIDs')
         .eq('userId', user.id);
 
-    Map<String,
-        dynamic> currentFavouriteRecipesMap = currentFavouriteRecipes[0];
+    Map<String, dynamic> currentFavouriteRecipesMap = currentFavouriteRecipes[0];
     List currentFavouriteRecipesList = currentFavouriteRecipesMap['recipesIDs'];
 
     // add the recipeId passed to the list
@@ -101,3 +100,68 @@ void addRecipeToUserFavourites(int recipeId) async {
 
   }
 }
+
+void removeRecipeFromUserFavourites(int recipeId) async {
+  final User? user = Supabase.instance.client.auth.currentUser;
+
+  if(user == null){
+    print('user not logged in');
+  }
+  else{
+    // get list from users row in Users table
+    final currentFavouriteRecipes = await Supabase.instance.client
+        .from('Users')
+        .select('recipesIDs')
+        .eq('userId', user.id);
+
+    Map<String, dynamic> currentFavouriteRecipesMap = currentFavouriteRecipes[0];
+    List currentFavouriteRecipesList = currentFavouriteRecipesMap['recipesIDs'];
+
+    // remove recipe from list
+    currentFavouriteRecipesList.remove(recipeId);
+
+    // add edited list back to db
+    final response = await Supabase.instance.client
+        .from('Users')
+        .update({'recipesIDs': currentFavouriteRecipesList})
+        .eq('userId', user.id);
+  }
+}
+
+Future<bool> isAlreadyInFavourites(int recipeId) async {
+  final User? user = Supabase.instance.client.auth.currentUser;
+
+  if(user == null){
+    print('user is not logged in');
+    return false;
+  }
+  else{
+    // get list from users row in Users table
+    final currentFavouriteRecipes = await Supabase.instance.client
+        .from('Users')
+        .select('recipesIDs')
+        .eq('userId', user.id);
+
+    Map<String, dynamic> currentFavouriteRecipesMap = currentFavouriteRecipes[0];
+    List currentFavouriteRecipesList = currentFavouriteRecipesMap['recipesIDs'];
+
+    if (currentFavouriteRecipesList.contains(recipeId)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+}
+
+Future<bool> isUserLoggedIn() async{
+  final User? user = Supabase.instance.client.auth.currentUser;
+
+  if(user == null){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+

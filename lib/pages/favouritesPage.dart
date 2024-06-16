@@ -59,7 +59,7 @@ class favouritesPageState extends State<favouritesPage>{
                                     Container(
                                       height: 530,
                                         width: 550,
-                                        child: listOfSummarisedRecipes(listOfRecipes: selectedRecipes)
+                                        child: listOfSummarisedRecipes(listOfRecipes: selectedRecipes, bgColor: Color(0xFFC27684))
                                     )
                               ]
                           )

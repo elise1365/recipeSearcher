@@ -5,6 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/helpWidget.dart';
 import 'signUpPage.dart';
 import 'signInPage.dart';
+import '../dbFunctions.dart';
+import 'favouritesPage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class searchPage extends StatefulWidget {
   const searchPage({super.key});
@@ -14,6 +17,7 @@ class searchPage extends StatefulWidget {
 }
 
 class searchPageState extends State<searchPage> {
+  final User? user = Supabase.instance.client.auth.currentUser;
 
   final myController = TextEditingController();
 
@@ -28,9 +32,31 @@ class searchPageState extends State<searchPage> {
     return Scaffold(
       body: Column(
           children: [
+            SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                FutureBuilder<bool>(
+                    future: isUserLoggedIn(),
+                    builder: (context, snapshot) {
+                      if(snapshot.hasData && snapshot.data == true) {
+                        return IconButton(
+                            icon: Icon(Icons.star_border_outlined),
+                            onPressed: () async {
+                              final User? user = Supabase.instance.client.auth.currentUser;
+                              List favourites = await retrieveUserFavourites(user!.id);
+                              Navigator.push(
+                                  context, MaterialPageRoute(
+                                  builder: (context) => favouritesPage(recipeIds: favourites))
+                              );
+                            }
+                        );
+                      }
+                      else{
+                        return SizedBox();
+                      }
+                    }
+                ),
                 IconButton(
                     icon: const Icon(Icons.help_outline),
                     onPressed: (){

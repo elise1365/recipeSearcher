@@ -7,8 +7,9 @@ import 'summarisedRecipeWidget.dart';
 
 class listOfSummarisedRecipes extends StatelessWidget {
   List<Map<String, dynamic>> listOfRecipes = [];
+  Color bgColor = Colors.white;
 
-  listOfSummarisedRecipes({required this.listOfRecipes});
+  listOfSummarisedRecipes({required this.listOfRecipes, required this.bgColor});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,8 @@ class listOfSummarisedRecipes extends StatelessWidget {
               time: time,
               ingredients: ingredients,
               steps: steps,
-              id: id);
+              id: id,
+              bgColor: bgColor);
         })
     );
   }

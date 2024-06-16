@@ -12,8 +12,9 @@ class summarisedRecipe extends StatelessWidget {
   List ingredients = [];
   List steps = [];
   int id = 0;
+  Color bgColor = Colors.white;
 
-  summarisedRecipe({required this.title, required this.description, required this.time, required this.ingredients, required this.steps, required this.id});
+  summarisedRecipe({required this.title, required this.description, required this.time, required this.ingredients, required this.steps, required this.id, required this.bgColor});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class summarisedRecipe extends StatelessWidget {
           width: 600,
           height: 150,
           child: Card(
-              color: Color(0xFF8CBCB9),
+              color: bgColor,
               clipBehavior: Clip.hardEdge,
               child: InkWell(
                       onTap: (){
