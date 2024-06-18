@@ -19,10 +19,29 @@ class fullRecipe extends StatefulWidget{
 }
 
 class fullRecipeState extends State<fullRecipe> {
+  bool? _isFavourite;
+  late Future<bool> isFavouriteFuture;
 
   @override
-  Future<bool> _isfavourite() async {
+  void initState() {
+    super.initState();
+    isFavouriteFuture = _fetchIsFavorite();
+  }
+
+  Future<bool> _fetchIsFavorite() async {
     return await isAlreadyInFavourites(widget.id);
+  }
+
+  void toggleFavourite(){
+    setState(() {
+      if (_isFavourite == true) {
+        removeRecipeFromUserFavourites(widget.id);
+        _isFavourite = false;
+      } else {
+        addRecipeToUserFavourites(widget.id);
+        _isFavourite = true;
+      }
+    });
   }
 
   @override
@@ -146,23 +165,15 @@ class fullRecipeState extends State<fullRecipe> {
                               Positioned(
                                 right: 10,
                                   child:FutureBuilder<bool>(
-                                    future: _isfavourite(),
+                                    future: isFavouriteFuture,
                                     builder: (context, snapshot) {
-                                      bool isFilled = snapshot.data ?? false;
-                                          return IconButton(
-                                              icon: Icon(isFilled ? Icons.done : Icons.add),
-                                              onPressed: () {
-                                                setState(() {
-                                                  if (isFilled) {
-                                                    removeRecipeFromUserFavourites(
-                                                        widget.id);
-                                                  } else {
-                                                    addRecipeToUserFavourites(
-                                                        widget.id);
-                                                  }
-                                                });
-                                              }
-                                          );
+                                      if(_isFavourite == null){
+                                        _isFavourite = snapshot.data!;
+                                      }
+                                      return IconButton(
+                                          icon: Icon(_isFavourite! ? Icons.done : Icons.add),
+                                          onPressed: toggleFavourite
+                                      );
                                     }
                                   )
                               ),

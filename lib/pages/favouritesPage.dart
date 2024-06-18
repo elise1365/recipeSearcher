@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../widgets/listOfSummarisedRecipesWidget.dart';
 import 'package:flutter/gestures.dart';
 import '../dbFunctions.dart';
+import '../widgets/logOutBttn.dart';
 
 class favouritesPage extends StatefulWidget{
   List recipeIds = [];
@@ -85,21 +86,11 @@ class favouritesPageState extends State<favouritesPage>{
                           TextSpan(
                               text: ' or ',
                               style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 20, color: Colors.black, decoration: TextDecoration.none))
-                          ),
-                          TextSpan(
-                            text: 'Sign out',
-                            style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 20, color: Colors.blue, decoration: TextDecoration.underline)),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = (){
-                                Supabase.instance.client.auth.signOut();
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (context) => searchPage())
-                                );
-                              }
                           )
                         ]
                         )
-                    )
+                    ),
+                    logOutButton()
                   ]
               )
           ]
