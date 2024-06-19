@@ -69,26 +69,42 @@ class resultsPageState extends State<resultsPage> {
         ]
       ),
       body: FutureBuilder(
-        future: fetchSpecificRecipesByIngredients(widget.inputText),
-        builder: (context, snapshot){
+        future: getIngredientId(widget.inputText),
+        builder: (context, snapshot) {
           if (!snapshot.hasData){
             return const Center(child: CircularProgressIndicator());
           }
-          final recipes = snapshot.data!;
-          return
-              SingleChildScrollView(
+          final ingredientIdAsList = snapshot.data!;
+          final ingredientId = ingredientIdAsList[0]['id'].toString();
+          return FutureBuilder(
+            future: fetchSpecificRecipesByIngredients(ingredientId),
+            builder: (context, snapshotRecipes){
+              if (snapshotRecipes.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshotRecipes.hasError) {
+                return Center(child: Text('Error: ${snapshotRecipes.error}'));
+              }
+
+              // Check if snapshotRecipes.data is null
+              if (snapshotRecipes.data == null) {
+                return Center(child: Text('No recipes found'));
+              }
+              final recipes = snapshotRecipes.data!;
+              return SingleChildScrollView(
                   child: Center(
                       child: Column(
                           children: [
                             SizedBox(height: 20),
                             Container(
-                              height: 600,
-                              width: 550,
-                              child: listOfSummarisedRecipes(listOfRecipes: recipes, bgColor: Color(0xFF8CBCB9))
-                              )
+                                height: 600,
+                                width: 550,
+                                child: listOfSummarisedRecipes(listOfRecipes: recipes, bgColor: Color(0xFF8CBCB9))
+                            )
                           ]
                       )
                   )
+              );
+            }
           );
         }
       ));

@@ -24,6 +24,24 @@ Future<List<Map<String, dynamic>>> fetchSpecificRecipesByIngredients(String ingr
   return specificRecipes;
 }
 
+Future<List<Map<String, dynamic>>> getIngredientId(String ingredient) async {
+  final findIngredientId = Supabase.instance.client
+      .from('Ingredients')
+      .select('id')
+      .eq('ingredient_name', ingredient);
+
+  return findIngredientId;
+}
+
+Future<String> getIngredientNameFromId(int id) async{
+  final findIngredientName = await Supabase.instance.client
+      .from('Ingredients')
+      .select('ingredient_name')
+      .eq('id', id);
+
+  return findIngredientName[0]['ingredient_name'];
+}
+
 List<Map<String, dynamic>> fetchSpecificRecipesByIds(List ids, final allRecipes) {
   List<Map<String, dynamic>> selectedRecipes = [];
 
