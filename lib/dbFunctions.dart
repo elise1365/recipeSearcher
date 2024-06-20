@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_thing/pages/favouritesPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -183,3 +185,29 @@ Future<bool> isUserLoggedIn() async{
   }
 }
 
+Color colourByType(int ingredientType){
+  List<Color> listOfColours = [
+    Color(0xFFDA5872),
+    Color(0xFFF5937A),
+    Color(0xFFFFD151),
+    Color(0xFF8CBCB9),
+    Color(0xFF8997D1),
+    Color(0xFFD69EE3),
+    Color(0xFF86BA90),
+    Color(0xFF53A1F3),
+    Color(0xFFF26990)];
+  Color colour = listOfColours[ingredientType];
+
+  return colour;
+}
+
+Future<List<Map<String, dynamic>>> getIngredientType(String ingredientName) async {
+  final ingredientType = Supabase.instance.client
+    .from('Ingredients')
+    .select('food_type_id')
+    .eq('ingredient_name', ingredientName);
+
+  // print(ingredientType);
+
+  return ingredientType;
+}

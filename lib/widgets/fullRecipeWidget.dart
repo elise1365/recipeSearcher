@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'helpWidget.dart';
 import 'package:recipe_thing/dbFunctions.dart';
+import 'ingredientWidget.dart';
 
 class fullRecipe extends StatefulWidget{
   String title = '';
@@ -111,15 +112,7 @@ class fullRecipeState extends State<fullRecipe> {
                                                       Text('Ingredients: ', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
                                                       ...ingredients.map((ingredient) => Container(
                                                           height: 40,
-                                                          child: Card(
-                                                              elevation: 0,
-                                                              child: Center(
-                                                                  child: Padding(
-                                                                      padding: EdgeInsets.only(left: 15, right: 15),
-                                                                      child: Text(ingredient, style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16)))
-                                                                  )
-                                                              )
-                                                          )
+                                                          child: ingredientCard(ingredientName: ingredient),
                                                       ))
                                                     ]
                                                 )
@@ -167,12 +160,25 @@ class fullRecipeState extends State<fullRecipe> {
                                   child:FutureBuilder<bool>(
                                     future: isFavouriteFuture,
                                     builder: (context, snapshot) {
-                                      if(_isFavourite == null){
-                                        _isFavourite = snapshot.data!;
+                                      if(snapshot.connectionState == ConnectionState.done){
+                                        if(snapshot.hasData){
+                                          _isFavourite ??= snapshot.data!;
+                                          return IconButton(
+                                              icon: Icon(_isFavourite! ? Icons.done : Icons.add),
+                                              onPressed: toggleFavourite
+                                          );
+                                        }
+                                        else if (snapshot.hasError){
+                                          return IconButton(
+                                              icon: Icon(_isFavourite! ? Icons.done : Icons.add),
+                                              onPressed: toggleFavourite
+                                          );
+                                        }
                                       }
-                                      return IconButton(
-                                          icon: Icon(_isFavourite! ? Icons.done : Icons.add),
-                                          onPressed: toggleFavourite
+                                      return SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(),
                                       );
                                     }
                                   )

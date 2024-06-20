@@ -31,7 +31,7 @@ class signInState extends State<signIn>{
     super.dispose();
   }
 
-  // shows an error message widget for 3 seconds, then it disapears
+  // shows an error message widget for 3 seconds, then it disappears
   void showWidget(){
     setState((){
       showErrorMessage = true;
@@ -130,7 +130,6 @@ class signInState extends State<signIn>{
                               }
                             } catch (error) {
                               print('Sign in unsuccessful');
-                              print(111);
                               showWidget();
                             }
                           },
