@@ -1,4 +1,4 @@
-# Recipe Searcher App
+# Recipe Searcher App (currently has no catchy name :/)
 
 Creating a basic flutter app for finding recipes based on ingredients. 
 
