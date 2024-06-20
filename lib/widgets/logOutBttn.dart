@@ -9,7 +9,11 @@ class logOutButton extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: Text('Log out'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFFFFD151),
+        elevation: 0
+      ),
+      child: Text('Log out', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 16, color: Colors.black))),
       onPressed: () {
         Supabase.instance.client.auth.signOut();
         Navigator.push(

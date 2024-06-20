@@ -196,8 +196,8 @@ Color colourByType(int ingredientType){
     Color(0xFF86BA90),
     Color(0xFF53A1F3),
     Color(0xFFF26990)];
-  Color colour = listOfColours[ingredientType];
 
+  Color colour = listOfColours[ingredientType];
   return colour;
 }
 

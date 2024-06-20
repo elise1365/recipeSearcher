@@ -8,6 +8,7 @@ import 'signInPage.dart';
 import '../dbFunctions.dart';
 import 'favouritesPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../widgets/logOutBttn.dart';
 
 class searchPage extends StatefulWidget {
   const searchPage({super.key});
@@ -102,41 +103,60 @@ class searchPageState extends State<searchPage> {
                   ]
               ),
             SizedBox(height: 20),
-            RichText(
-                text:
-                TextSpan(
-                    text: 'Create an account ',
-                    style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 20)),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>
-                                signUp())
-                        );
-                      },
-                  children:[
-                    TextSpan(
-                      text: 'to favourite recipes',
-                        style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.black, decoration: TextDecoration.none, fontSize: 20))
-                    )
-                  ]
-                ),
-            ),
-            RichText(
-              text:
-              TextSpan(
-                text: 'Sign in',
-                style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 20)),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>
-                            signIn())
+            FutureBuilder<bool>(
+                future: isUserLoggedIn(),
+                builder: (context, snapshot){
+                  if (snapshot.hasData && snapshot.data == true){
+                    return Column(
+                        children: [
+                          SizedBox(height: 210),
+                          logOutButton()
+                        ]
                     );
-                  },
-              ),
+                  }
+                  else{
+                    return Column(
+                      children: [
+                        RichText(
+                          text:
+                          TextSpan(
+                              text: 'Create an account ',
+                              style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 20)),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = (){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>
+                                          signUp())
+                                  );
+                                },
+                              children:[
+                                TextSpan(
+                                    text: 'to favourite recipes',
+                                    style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.black, decoration: TextDecoration.none, fontSize: 20))
+                                )
+                              ]
+                          ),
+                        ),
+                        RichText(
+                          text:
+                          TextSpan(
+                            text: 'Sign in',
+                            style: GoogleFonts.lexend(textStyle: TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 20)),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = (){
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>
+                                        signIn())
+                                );
+                              },
+                          ),
+                        )
+                      ]
+                    );
+                  }
+                }
             )
           ],
       ),
