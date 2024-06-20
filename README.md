@@ -9,3 +9,7 @@ App has a search bar for users to enter an ingredient, and all recipes with this
 - Uses supabase for auth and database
 - Writing the recipes myself
 - Has sign in and sign up functionality, so users can favourite recipes
+- Ingredients are grouped by food type; dairy, veg etc and each group has its own colour
+- Searches can be filtered by allergens and sorted by time or number of steps/ ingredients
+
+<insert image of full recipe, summarised recipe and search page here?>
