@@ -1,8 +1,8 @@
-# Recipe Searcher App (no catchy name currently :/)
+# Recipe Searcher (no catchy name currently :/)
 
-Creating a basic flutter app for finding recipes based on ingredients. 
+Creating basic flutter code for finding recipes based on ingredients. 
 
-App has a search bar for users to enter an ingredient, and all recipes with this ingredient are returned in a summarised form, clicking on a recipe expands it, showing the steps involved etc.
+Involves a search bar for users to enter an ingredient, and all recipes with this ingredient are returned in a summarised form, clicking on a recipe expands it, showing the steps involved etc.
 
 ## Further information
 
