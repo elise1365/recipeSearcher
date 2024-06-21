@@ -10,6 +10,8 @@ import '../dbFunctions.dart';
 import 'favouritesPage.dart';
 import '../widgets/logOutBttn.dart';
 
+enum orderByOptionsList { TimeAsc, TimeDesc, IngredientsAsc, IngredientsDesc, StepsAsc, StepsDesc}
+
 class resultsPage extends StatefulWidget {
   String inputText = '';
 
@@ -22,21 +24,63 @@ class resultsPage extends StatefulWidget {
 class resultsPageState extends State<resultsPage> {
   final User? user = Supabase.instance.client.auth.currentUser;
 
+  orderByOptionsList? selectedItem;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-              child: Text.rich(
-                TextSpan(
-                  text: 'Recipes using ',
-                  style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40)),
-                  children: <TextSpan>[
-                    TextSpan(text: widget.inputText, style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)))
-                  ],
-                ),
-              )
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Recipes using ',
+                    style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40)),
+                    children: <TextSpan>[
+                      TextSpan(text: widget.inputText, style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)))
+                    ],
+                  ),
+                )
+            ),
+            PopupMenuButton<orderByOptionsList>(
+                    initialValue: selectedItem,
+                    onSelected: (orderByOptionsList item) {
+                      setState((){
+                        selectedItem = item;
+                      });
+                    },
+                    itemBuilder: (BuildContext context) => <PopupMenuEntry<orderByOptionsList>>[
+                      PopupMenuItem<orderByOptionsList>(
+                          value: orderByOptionsList.TimeAsc,
+                          child: Text('Time (ascending)', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                      ),
+                      PopupMenuItem<orderByOptionsList>(
+                          value: orderByOptionsList.TimeDesc,
+                          child: Text('Time (descending)', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                      ),
+                      PopupMenuItem<orderByOptionsList>(
+                          value: orderByOptionsList.IngredientsAsc,
+                          child: Text('Ingredients (ascending)', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                      ),
+                      PopupMenuItem<orderByOptionsList>(
+                          value: orderByOptionsList.IngredientsDesc,
+                          child: Text('Ingredients (descending)', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                      ),
+                      PopupMenuItem<orderByOptionsList>(
+                          value: orderByOptionsList.StepsAsc,
+                          child: Text('Step (ascending)', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                      ),
+                      PopupMenuItem<orderByOptionsList>(
+                          value: orderByOptionsList.StepsDesc,
+                          child: Text('Steps (descending)', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                      )
+                    ],
+                    icon: Icon(Icons.arrow_drop_down)
+                )
+          ]
+        ),
         actions: <Widget>[
           FutureBuilder<bool>(
             future: isUserLoggedIn(),
