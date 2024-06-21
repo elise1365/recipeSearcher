@@ -10,6 +10,8 @@ import 'favouritesPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../widgets/logOutBttn.dart';
 
+enum filterOptions { Fruit, Veg, Dairy, Seafood, Meat, Grains, CupboardStaples, Spices, OilsAndSauces}
+
 class searchPage extends StatefulWidget {
   const searchPage({super.key});
 
@@ -21,6 +23,8 @@ class searchPageState extends State<searchPage> {
   final User? user = Supabase.instance.client.auth.currentUser;
 
   final myController = TextEditingController();
+
+  filterOptions? selectedItem;
 
   @override
   void dispose() {
@@ -76,6 +80,61 @@ class searchPageState extends State<searchPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
+                        width: 145,
+                        child: Row(
+                            children: [
+                              Text('Filter recipes', style: GoogleFonts.lexend(fontSize: 16)),
+                              PopupMenuButton<filterOptions>(
+                                  initialValue: selectedItem,
+                                  onSelected: (filterOptions item) {
+                                    setState((){
+                                      selectedItem = item;
+                                    });
+                                  },
+                                  itemBuilder: (BuildContext context) => <PopupMenuEntry<filterOptions>>[
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.CupboardStaples,
+                                        child: Text('Cupboard staples', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    ),
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.Dairy,
+                                        child: Text('Dairy', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    ),
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.Fruit,
+                                        child: Text('Fruit', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    ),
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.Grains,
+                                        child: Text('Grains', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    ),
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.Meat,
+                                        child: Text('Meat', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    ),
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.OilsAndSauces,
+                                        child: Text('Oils and sauces', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    ),
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.Seafood,
+                                        child: Text('Seafood', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    ),
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.Spices,
+                                        child: Text('Spices', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    ),
+                                    PopupMenuItem<filterOptions>(
+                                        value: filterOptions.Veg,
+                                        child: Text('Veg', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                                    )
+                                  ],
+                                  icon: Icon(Icons.arrow_drop_down)
+                              )
+                            ]
+                        )
+                    ),
+                    SizedBox(
                           width: 250,
                           child: TextField(
                               controller: myController,
@@ -96,7 +155,7 @@ class searchPageState extends State<searchPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
-                                  resultsPage(inputText: myController.text))
+                                  resultsPage(inputText: myController.text, chosenFilter: selectedItem))
                           );
                         }
                     ),

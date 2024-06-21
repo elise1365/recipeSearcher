@@ -14,8 +14,9 @@ enum orderByOptionsList { TimeAsc, TimeDesc, IngredientsAsc, IngredientsDesc, St
 
 class resultsPage extends StatefulWidget {
   String inputText = '';
+  filterOptions? chosenFilter;
 
-  resultsPage({required this.inputText});
+  resultsPage({required this.inputText, required this.chosenFilter});
 
   @override
   State<resultsPage> createState() => resultsPageState();
@@ -148,7 +149,8 @@ class resultsPageState extends State<resultsPage> {
                 }
                 final ingredientIdAsList = snapshot.data!;
                 final ingredientId = ingredientIdAsList[0]['id'].toString();
-                return FutureBuilder(
+                if(widget.chosenFilter == null)
+                  return FutureBuilder(
                     future: fetchSpecificRecipesByIngredients(ingredientId),
                     builder: (context, snapshotRecipes){
                       if (snapshotRecipes.connectionState == ConnectionState.waiting) {
@@ -178,6 +180,94 @@ class resultsPageState extends State<resultsPage> {
                       );
                     }
                 );
+                else {
+                  return FutureBuilder(
+                      future: fetchSpecificRecipesByIngredients(ingredientId),
+                      builder: (context, snapshotRecipes) {
+                        if (snapshotRecipes.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshotRecipes.hasError) {
+                          return Center(child: Text('Error: ${snapshotRecipes
+                              .error}'));
+                        }
+
+                        if (snapshotRecipes.data == null) {
+                          return Center(child: Text('No recipes found'));
+                        }
+                        final recipes = snapshotRecipes.data!;
+
+                        int foodTypeToRemove = 0;
+                        if(widget.chosenFilter == filterOptions.Fruit){
+                          foodTypeToRemove = 1;
+                        }
+                        else if(widget.chosenFilter == filterOptions.Veg){
+                          foodTypeToRemove = 2;
+                        }
+                        else if(widget.chosenFilter == filterOptions.Spices){
+                          foodTypeToRemove = 3;
+                        }
+                        else if(widget.chosenFilter == filterOptions.Grains){
+                          foodTypeToRemove = 4;
+                        }
+                        else if(widget.chosenFilter == filterOptions.OilsAndSauces){
+                          foodTypeToRemove = 5;
+                        }
+                        else if(widget.chosenFilter == filterOptions.Dairy){
+                          foodTypeToRemove = 6;
+                        }
+                        else if(widget.chosenFilter == filterOptions.Meat){
+                          foodTypeToRemove = 7;
+                        }
+                        else if(widget.chosenFilter == filterOptions.Seafood){
+                          foodTypeToRemove = 8;
+                        }
+                        else if(widget.chosenFilter == filterOptions.CupboardStaples){
+                          foodTypeToRemove = 9;
+                        }
+
+                        return FutureBuilder(
+                          future: getListOfIngredientsWithSpecificFoodType(foodTypeToRemove),
+                          builder: (context, snapshotFilters){
+                            if (snapshotFilters.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshotFilters.hasError) {
+                              return Center(child: Text('Error: ${snapshotRecipes
+                                  .error}'));
+                            }
+                            if (snapshotFilters.data == null) {
+                              return Center(child: Text('No recipes found'));
+                            }
+
+                            final listOfIngredientsToRemove = snapshotFilters.data;
+                            final finalListOfIngredientsToRemove = [];
+                            for(int i=0;i<listOfIngredientsToRemove!.length;i++){
+                              finalListOfIngredientsToRemove.add(listOfIngredientsToRemove[i]['id']);
+                            }
+                            final recipes1 = fetchSpecificRecipesByIngredientsWithFilter(recipes, finalListOfIngredientsToRemove);
+                            final sortedRecipes = sortRecipes(recipes1, selectedItem);
+                            return SingleChildScrollView(
+                                child: Center(
+                                    child: Column(
+                                        children: [
+                                          SizedBox(height: 20),
+                                          Container(
+                                              height: 530,
+                                              width: 550,
+                                              child: listOfSummarisedRecipes(
+                                                  listOfRecipes: sortedRecipes,
+                                                  bgColor: Color(0xFF8CBCB9))
+                                          )
+                                        ]
+                                    )
+                                )
+                            );
+                        }
+                        );
+                      }
+                  );
+                };
               }
           ),
           FutureBuilder<bool>(

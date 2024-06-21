@@ -26,6 +26,34 @@ Future<List<Map<String, dynamic>>> fetchSpecificRecipesByIngredients(String ingr
   return specificRecipes;
 }
 
+List<Map<String, dynamic>> fetchSpecificRecipesByIngredientsWithFilter(List recipes, List ingredientsToRemove) {
+  List<Map<String, dynamic>> filteredRecipeList = [];
+
+  for(int i=0;i<recipes.length;i++){
+    bool shouldRemove = false;
+    for(int y=0;y<recipes[i]['ingredients'].length;y++){
+      if(ingredientsToRemove.contains(recipes[i]['ingredients'][y])){
+        shouldRemove = true;
+        break;
+      }
+    }
+    if(shouldRemove == false){
+      filteredRecipeList.add(recipes[i]);
+    }
+  }
+
+  return filteredRecipeList;
+}
+
+Future<List<Map<String, dynamic>>> getListOfIngredientsWithSpecificFoodType(int foodType){
+  final ingredientsToRemove = Supabase.instance.client
+      .from('Ingredients')
+      .select('id')
+      .eq('food_type_id', foodType);
+
+  return ingredientsToRemove;
+}
+
 Future<List<Map<String, dynamic>>> getIngredientId(String ingredient) async {
   final findIngredientId = Supabase.instance.client
       .from('Ingredients')
