@@ -26,6 +26,31 @@ class resultsPageState extends State<resultsPage> {
 
   orderByOptionsList? selectedItem;
 
+  List<Map<String, dynamic>> sortRecipes(List<Map<String, dynamic>> recipes, orderByOptionsList? chosenOrderBy){
+    List<Map<String, dynamic>> sortedRecipes = recipes;
+
+    if(selectedItem == orderByOptionsList.TimeAsc){
+      sortedRecipes.sort((a,b) => a['time'].compareTo(b['time']));
+    }
+    else if(selectedItem == orderByOptionsList.TimeDesc){
+      sortedRecipes.sort((a,b) => b['time'].compareTo(a['time']));
+    }
+    if(selectedItem == orderByOptionsList.IngredientsAsc){
+      sortedRecipes.sort((a,b) => a['ingredients'].length.compareTo(b['ingredients'].length));
+    }
+    else if(selectedItem == orderByOptionsList.IngredientsDesc){
+      sortedRecipes.sort((a,b) => b['ingredients'].length.compareTo(a['ingredients'].length));
+    }
+    if(selectedItem == orderByOptionsList.StepsAsc){
+      sortedRecipes.sort((a,b) => a['steps'].length.compareTo(b['steps'].length));
+    }
+    else if(selectedItem == orderByOptionsList.StepsDesc){
+      sortedRecipes.sort((a,b) => b['steps'].length.compareTo(a['steps'].length));
+    }
+
+    return sortedRecipes;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +95,7 @@ class resultsPageState extends State<resultsPage> {
                       ),
                       PopupMenuItem<orderByOptionsList>(
                           value: orderByOptionsList.StepsAsc,
-                          child: Text('Step (ascending)', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
+                          child: Text('Steps (ascending)', style: GoogleFonts.lexend(textStyle: TextStyle(fontSize: 12)))
                       ),
                       PopupMenuItem<orderByOptionsList>(
                           value: orderByOptionsList.StepsDesc,
@@ -132,11 +157,11 @@ class resultsPageState extends State<resultsPage> {
                         return Center(child: Text('Error: ${snapshotRecipes.error}'));
                       }
 
-                      // Check if snapshotRecipes.data is null
                       if (snapshotRecipes.data == null) {
                         return Center(child: Text('No recipes found'));
                       }
                       final recipes = snapshotRecipes.data!;
+                      final sortedRecipes = sortRecipes(recipes, selectedItem);
                       return SingleChildScrollView(
                           child: Center(
                               child: Column(
@@ -145,7 +170,7 @@ class resultsPageState extends State<resultsPage> {
                                     Container(
                                         height: 530,
                                         width: 550,
-                                        child: listOfSummarisedRecipes(listOfRecipes: recipes, bgColor: Color(0xFF8CBCB9))
+                                        child: listOfSummarisedRecipes(listOfRecipes: sortedRecipes, bgColor: Color(0xFF8CBCB9))
                                     )
                                   ]
                               )
